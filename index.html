@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase Authentication</title>
+  <script src="https://unpkg.com/vue"></script>
+  <!-- Le noyau de base de développement JS SDK Firebase est toujours requis et doit être répertorié en premier-->
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+  <!--Ajoutez les produits Firebase que vous souhaitez utiliser (par exemple, Analytics, Authentication ou Cloud Firestore...)-->
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script> 
+</head>
+<body>
+
+  <div id="app">
+    <h1>Firebase Authentication</h1>
+    <div>
+      <h2>Signed in as .....</h2>
+      <button>Sign out</button>
+    </div>
+
+    <div>
+      <form>
+        <h2>Register</h2>
+        <input type="email" placeholder="Type your email">
+        <input type="password" placeholder="Pick your password">
+        <button>Register</button>
+      </form>
+
+      <form>
+        <h2>Sign in</h2>
+        <input type="email" placeholder="Type your email">
+        <input type="password" v-model="password" placeholder="Type your password">
+        <button>Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // La configuration Firebase de votre application web (ce script doit être caché !!!!) 
+    var firebaseConfig = {
+      apiKey: "AIzaSyCfs4fuy732-B8M_2CdySHxoxyjnk3ZrOw",
+      authDomain: "vue-js-firebase-auth.firebaseapp.com",
+      databaseURL: "https://vue-js-firebase-auth.firebaseio.com",
+      projectId: "vue-js-firebase-auth",
+      storageBucket: "vue-js-firebase-auth.appspot.com",
+      messagingSenderId: "217756866359",
+      appId: "1:217756866359:web:fe2b214972e165c634acb2"
+    };
+    // Initialiser Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>  
+</body>
+</html>
+
