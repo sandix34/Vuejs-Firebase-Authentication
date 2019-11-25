@@ -12,23 +12,23 @@
 <body>
 
   <div id="app">
-    <h1>Firebase Authentication</h1>
-    <div>
-      <h2>Signed in as .....</h2>
-      <button>Sign out</button>
+    <h1>Vue School - Firebase Authentication</h1>
+    <div v-if="authUser">
+      <h2>Signed in as {{authUser.email}}</h2>
+      <button @click="signOut">Sign out</button>
     </div>
-
-    <div>
-      <form>
+  
+    <div v-else>
+      <form @submit.prevent="register">
         <h2>Register</h2>
-        <input type="email" placeholder="Type your email">
-        <input type="password" placeholder="Pick your password">
+        <input type="email" v-model="email" placeholder="Type your email">
+        <input type="password" v-model="password" placeholder="Pick your password">
         <button>Register</button>
       </form>
-
-      <form>
+  
+      <form @submit.prevent="signIn">
         <h2>Sign in</h2>
-        <input type="email" placeholder="Type your email">
+        <input type="email" v-model="email" placeholder="Type your email">
         <input type="password" v-model="password" placeholder="Type your password">
         <button>Sign In</button>
       </form>
@@ -36,7 +36,7 @@
   </div>
 
   <script>
-    // La configuration Firebase de votre application web (ce script doit être caché !!!!) 
+    // La configuration Firebase de votre application web ( ce script doit être caché ❗❗❗)
     var firebaseConfig = {
       apiKey: "AIzaSyCfs4fuy732-B8M_2CdySHxoxyjnk3ZrOw",
       authDomain: "vue-js-firebase-auth.firebaseapp.com",
@@ -48,6 +48,30 @@
     };
     // Initialiser Firebase
     firebase.initializeApp(firebaseConfig);
+
+    new Vue({
+    el: '#app',
+    data: {
+      email: '',
+      password: '',
+      authUser: null
+    },
+    methods: {
+      register () {
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+      },
+      signOut () {
+        firebase.auth().signOut()
+      },
+      signIn () {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      }
+    },
+    created () {
+      firebase.auth().onAuthStateChanged(user => { this.authUser = user })
+    }
+  })
+
   </script>  
 </body>
 </html>
