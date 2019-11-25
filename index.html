@@ -25,6 +25,18 @@
         <input v-model="photoURL" placeholder="Your photo url">
         <button>Update</button>
       </form>
+
+      <form @submit.prevent="updateEmail">
+        <h2>Update Email</h2>
+        <input v-model="email" placeholder="Your email">
+        <button>Update</button>
+      </form>
+  
+      <form @submit.prevent="updatePassword">
+        <h2>Update Password</h2>
+        <input type="password" v-model="newPassword" placeholder="Your password">
+        <button>Update</button>
+      </form>
     </div>
   
     <div v-else>
@@ -71,6 +83,7 @@
       password: '',
       displayName: null,
       photoURL: null,
+      newPassword: null,
       authUser: null
     },
     methods: {
@@ -96,6 +109,14 @@
           displayName: this.displayName,
           photoURL: this.photoURL
         })
+      },
+      updateEmail () {
+        this.authUser.updateEmail(this.email)
+      },
+      updatePassword () {
+        this.authUser.updatePassword(this.newPassword)
+          .then(() => { this.newPassword = null })
+          .catch(error => alert('🤕' + error.message))
       }
     },
     created () {
@@ -104,6 +125,7 @@
         if (user) {
         this.displayName = user.displayName
         this.photoURL = user.photoURL
+        this.email = user.email
         }
         })
     }
